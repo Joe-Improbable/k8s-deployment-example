@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: one-pod-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: controller-test
+        image: gcr.io/iconic-nimbus-209913/controller-test:latest
+        imagePullPolicy: Always
+        args:
+        - --replicas
+        - "1"
+      restartPolicy: Never
+  backoffLimit: 1

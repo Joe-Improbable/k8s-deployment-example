@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: crud-role
+  namespace: default
+rules:
+- apiGroups: ["", "apps", "batch"]
+  resources: [ "deployments", "jobs", pods", "replicasets", services" ]
+  verbs: [ "get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: crud-role-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: crud-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: default
